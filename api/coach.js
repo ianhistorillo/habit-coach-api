@@ -9,6 +9,8 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Only POST allowed" });
   }
 
+  return res.status(200).json({ debug: true, received: req.body });
+
   const { user } = req.body;
 
   const prompt = `
