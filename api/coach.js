@@ -26,7 +26,7 @@ Give 3 personalized habits that match their situation. Be concise but helpful.
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "openai/gpt-3.5-turbo-0613", // ✅ CORRECT model name
+        model: "anthropic/claude-3-haiku", // ✅ CORRECT model name
         messages: [{ role: "user", content: prompt }]
       })
     });
