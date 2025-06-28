@@ -22,17 +22,16 @@ Give 3 personalized habits that match their situation. Be concise but helpful.
       method: "POST",
       headers: {
         "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
-        "HTTP-Referer": "https://habit-coach-api.vercel.app", // your domain or localhost
+        "HTTP-Referer": "https://habit-coach-api.vercel.app", // or your domain
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "openrouter/openai/gpt-3.5-turbo", // ✅ correct model name
+        model: "gpt-3.5-turbo", // ✅ CORRECT model name
         messages: [{ role: "user", content: prompt }]
       })
     });
 
     const data = await response.json();
-
     console.log("🧠 OpenAI raw response:", JSON.stringify(data, null, 2));
 
     const reply = data?.choices?.[0]?.message?.content ?? "⚠️ GPT did not return a message.";
