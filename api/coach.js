@@ -27,7 +27,7 @@ Give 3 personalized habits that match their situation. Be concise but helpful.
         Authorization: `Bearer ${OPENAI_KEY}`,
       },
       body: JSON.stringify({
-        model: "gpt-4", // You can switch to "gpt-4-turbo" if allowed
+        model: "gpt-3.5-turbo", // You can switch to "gpt-4-turbo" if allowed
         messages: [{ role: "user", content: prompt }],
       }),
     });
