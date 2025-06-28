@@ -20,16 +20,17 @@ Give 3 personalized habits that match their situation. Be concise but helpful.
 `;
 
   try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${OPENAI_KEY}`,
+        "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        "HTTP-Referer": "http://localhost", // required (change to your site if deployed)
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "gpt-3.5-turbo", // You can switch to "gpt-4-turbo" if allowed
-        messages: [{ role: "user", content: prompt }],
-      }),
+        model: "openai/gpt-3.5-turbo",
+        messages: [{ role: "user", content: prompt }]
+      })
     });
 
     const data = await response.json();
