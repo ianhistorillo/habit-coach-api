@@ -24,7 +24,7 @@ Give 3 personalized habits that match their situation. Be concise but helpful.
       method: "POST",
       headers: {
         "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
-        "HTTP-Referer": "http://localhost", // required (change to your site if deployed)
+        "HTTP-Referer": "https://habit-coach-api.vercel.app/api/coach", // required (change to your site if deployed)
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
