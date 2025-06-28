@@ -1,17 +1,25 @@
 export default async function handler(req, res) {
   
-  // ✅ Enable CORS
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Only POST allowed" });
+  if (req.method === 'OPTIONS') {
+    // Handle preflight CORS
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    return res.status(200).end();
   }
 
-  return res.status(200).json({ debug: true, received: req.body });
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method Not Allowed' });
+  }
 
-  const { user } = req.body;
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Content-Type', 'application/json');
+
+  const user = req.body?.user;
+
+  if (!user) {
+    return res.status(400).json({ error: 'Missing user data' });
+  }
 
   const prompt = `
 You are a friendly and practical habit coach.
