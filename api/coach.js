@@ -1,6 +1,4 @@
 export default async function handler(req, res) {
-  const OPENAI_KEY = process.env.OPENAI_API_KEY;
-
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Only POST allowed" });
   }
@@ -24,11 +22,11 @@ Give 3 personalized habits that match their situation. Be concise but helpful.
       method: "POST",
       headers: {
         "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
-        "HTTP-Referer": "https://habit-coach-api.vercel.app/api/coach", // required (change to your site if deployed)
+        "HTTP-Referer": "https://habit-coach-api.vercel.app", // your domain or localhost
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "openai/gpt-3.5-turbo",
+        model: "openrouter/openai/gpt-3.5-turbo", // ✅ correct model name
         messages: [{ role: "user", content: prompt }]
       })
     });
@@ -38,10 +36,10 @@ Give 3 personalized habits that match their situation. Be concise but helpful.
     console.log("🧠 OpenAI raw response:", JSON.stringify(data, null, 2));
 
     const reply = data?.choices?.[0]?.message?.content ?? "⚠️ GPT did not return a message.";
-
     res.status(200).json({ reply });
+
   } catch (err) {
-    console.error("❌ OpenAI API Error:", err);
+    console.error("❌ OpenRouter API Error:", err);
     res.status(500).json({ error: "Something went wrong with AI response." });
   }
 }
